@@ -43,7 +43,7 @@ func main() {
 
 	encHex, _ := xxtea.EncryptHex(data, key, true, 0)
 	decHex, _ := xxtea.DecryptHex(encHex, key, true, 0)
-	if string(data) == decHex {
+	if bytes.Equal(data, decHex) {
 		fmt.Println("encrypt hex success!")
 	} else {
 		fmt.Println("encrypt hex fail!")
@@ -51,7 +51,7 @@ func main() {
 
 	encB64, _ := xxtea.EncryptBase64(data, key, true, 0)
 	decB64, _ := xxtea.DecryptBase64(encB64, key, true, 0)
-	if string(data) == decB64 {
+	if bytes.Equal(data, decB64) {
 		fmt.Println("encrypt base64 success!")
 	} else {
 		fmt.Println("encrypt base64 fail!")

@@ -121,6 +121,7 @@ func uint32sToBytes(in []uint32, inLen int, out []byte, padding bool) int {
 	return outLen
 }
 
+// URandom return random bytes of the specified length for encryption.
 func URandom(n int) ([]byte, error) {
 	token := make([]byte, n)
 	_, err := rand.Read(token)
@@ -130,6 +131,7 @@ func URandom(n int) ([]byte, error) {
 	return token, nil
 }
 
+// Encrypt the data with key.
 func Encrypt(data []byte, key []byte, padding bool, rounds uint32) ([]byte, error) {
 	var aLen, dLen, kLen, paddingValue int
 	dLen, kLen = len(data), len(key)
@@ -163,6 +165,7 @@ func Encrypt(data []byte, key []byte, padding bool, rounds uint32) ([]byte, erro
 	return retBuf, nil
 }
 
+// Decrypt the data with key.
 func Decrypt(data []byte, key []byte, padding bool, rounds uint32) ([]byte, error) {
 	var aLen, dLen, kLen, rc int
 	dLen, kLen = len(data), len(key)
@@ -199,6 +202,7 @@ func Decrypt(data []byte, key []byte, padding bool, rounds uint32) ([]byte, erro
 	return refBuf, nil
 }
 
+// EncryptBase64 encrypts data with a key and returns the base64 encoding of the result.
 func EncryptBase64(data []byte, key []byte, padding bool, rounds uint32) (string, error) {
 	v, err := Encrypt(data, key, padding, rounds)
 	if err != nil {
@@ -207,19 +211,21 @@ func EncryptBase64(data []byte, key []byte, padding bool, rounds uint32) (string
 	return base64.StdEncoding.EncodeToString(v), nil
 }
 
-func DecryptBase64(b64Str string, key []byte, padding bool, rounds uint32) (string, error) {
+// DecryptBase64 decrypt the base64 encoded data with key.
+func DecryptBase64(b64Str string, key []byte, padding bool, rounds uint32) ([]byte, error) {
 	dataBytes, err := base64.StdEncoding.DecodeString(b64Str)
 	if err != nil {
-		return "", nil
+		return nil, err
 	}
 
 	v, err := Decrypt(dataBytes, key, padding, rounds)
 	if err != nil {
-		return "", nil
+		return nil, err
 	}
-	return string(v), nil
+	return v, nil
 }
 
+// EncryptHex encrypts data with a key and returns the hexadecimal encoding of the result.
 func EncryptHex(data []byte, key []byte, padding bool, rounds uint32) (string, error) {
 	v, err := Encrypt(data, key, padding, rounds)
 	if err != nil {
@@ -228,15 +234,16 @@ func EncryptHex(data []byte, key []byte, padding bool, rounds uint32) (string, e
 	return hex.EncodeToString(v), nil
 }
 
-func DecryptHex(hexStr string, key []byte, padding bool, rounds uint32) (string, error) {
+// DecryptHex decrypt the hexadecimal encoded data with key.
+func DecryptHex(hexStr string, key []byte, padding bool, rounds uint32) ([]byte, error) {
 	dataBytes, err := hex.DecodeString(hexStr)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	v, err := Decrypt(dataBytes, key, padding, rounds)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return string(v), nil
+	return v, nil
 }

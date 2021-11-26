@@ -55,8 +55,8 @@ func TestDecryptBase64(t *testing.T) {
 		t.Error(err)
 	}
 
-	if string(data) != v {
-		t.Errorf("%s != %s", string(data), v)
+	if !bytes.Equal(data, v) {
+		t.Errorf("%+v != %+v", data, v)
 	}
 }
 
@@ -77,8 +77,8 @@ func TestDecryptHex(t *testing.T) {
 		t.Error(err)
 	}
 
-	if string(data) != v {
-		t.Errorf("%s != %s", string(data), v)
+	if !bytes.Equal(data, v) {
+		t.Errorf("%+v != %+v", data, v)
 	}
 }
 
