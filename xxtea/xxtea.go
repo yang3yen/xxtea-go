@@ -122,7 +122,8 @@ func uint32sToBytes(in []uint32, inLen int, out []byte, padding bool) int {
 }
 
 // URandom return random bytes of the specified length for encryption.
-func URandom(n int) ([]byte, error) {
+func URandom(n int, seed int64) ([]byte, error) {
+	rand.Seed(seed)
 	token := make([]byte, n)
 	_, err := rand.Read(token)
 	if err != nil {
