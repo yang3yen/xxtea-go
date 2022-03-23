@@ -7,8 +7,8 @@
 版本对应：
 
 | xxtea-go |      xxtea-python      |
-| :------: | :--------------------: |
-|  v1.0.0  | v1.2.0, v1.3.0, v2.0.0 |
+|:--------:| :--------------------: |
+|  v1.0.x  | v1.2.0, v1.3.0, v2.0.0 |
 
 ## 安装
 
@@ -26,12 +26,13 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"time"
 	"github.com/yang3yen/xxtea-go/xxtea"
 )
 
 func main() {
 	data := []byte("xxtea-test-case")
-	key, _ := xxtea.URandom(16)
+	key, _ := xxtea.URandom(16, time.Now().UnixNano())
 
 	enc, _ := xxtea.Encrypt(data, key, true, 0)
 	dec, _ := xxtea.Decrypt(enc, key, true, 0)

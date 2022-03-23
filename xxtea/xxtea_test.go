@@ -3,6 +3,7 @@ package xxtea
 import (
 	"bytes"
 	"testing"
+	"time"
 )
 
 func zeroBytes(n int) []byte {
@@ -84,8 +85,9 @@ func TestDecryptHex(t *testing.T) {
 
 func TestRandom(t *testing.T) {
 	for i := 0; i < 2048; i++ {
-		data, _ := URandom(i)
-		key, _ := URandom(16)
+		seedV := time.Now().UnixNano()
+		data, _ := URandom(i, seedV)
+		key, _ := URandom(16, seedV)
 
 		enc, err := Encrypt(data, key, true, 0)
 		if err != nil {
@@ -119,7 +121,7 @@ func TestRandom(t *testing.T) {
 func TestZeroBytes(t *testing.T) {
 	for i := 0; i < 2048; i++ {
 		data := zeroBytes(i)
-		key, _ := URandom(16)
+		key, _ := URandom(16, time.Now().UnixNano())
 
 		enc, err := Encrypt(data, key, true, 0)
 		if err != nil {
@@ -136,9 +138,10 @@ func TestZeroBytes(t *testing.T) {
 }
 
 func TestEncryptNoPadding(t *testing.T) {
-	key, _ := URandom(16)
+	seedV := time.Now().UnixNano()
+	key, _ := URandom(16, seedV)
 	for _, v := range []int{8, 12, 16, 20} {
-		data, _ := URandom(v)
+		data, _ := URandom(v, seedV)
 		enc, err := Encrypt(data, key, false, 0)
 		if err != nil {
 			t.Error(err)
@@ -157,8 +160,9 @@ func TestEncryptNoPadding(t *testing.T) {
 }
 
 func TestEncryptRandomRounds(t *testing.T) {
-	key, _ := URandom(16)
-	data, _ := URandom(64)
+	seedV := time.Now().UnixNano()
+	key, _ := URandom(16, seedV)
+	data, _ := URandom(64, seedV)
 	for i := 1; i < 2048; i++ {
 		enc, err := Encrypt(data, key, true, uint32(i))
 		if err != nil {
@@ -177,7 +181,8 @@ func TestEncryptRandomRounds(t *testing.T) {
 }
 
 func TestEncryptNoPaddingZero(t *testing.T) {
-	key, _ := URandom(16)
+	seedV := time.Now().UnixNano()
+	key, _ := URandom(16, seedV)
 	for _, v := range []int{8, 12, 16, 20} {
 		data := zeroBytes(v)
 
