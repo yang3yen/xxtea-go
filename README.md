@@ -2,7 +2,7 @@
 
 ## Introduction
 
-`xxtea` is a fast and secure encryption algorithm. This project is the Golang implementation of the `xxtea` encryption algorithm. Refer to the implementation of the [xxtea](https://github.com/ifduyue/xxtea) project of Python. The encryption and decryption results are the same as the [xxtea](https://github.com/ifduyue/xxtea) project of Python.
+[`xxtea`](https://en.wikipedia.org/wiki/XXTEA) is a block cipher. This project is the Golang implementation of the `xxtea` encryption algorithm. Refer to the implementation of the [xxtea](https://github.com/ifduyue/xxtea) project of Python. The encryption and decryption results are the same as the [xxtea](https://github.com/ifduyue/xxtea) project of Python.
 
 version:
 

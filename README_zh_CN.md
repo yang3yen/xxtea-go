@@ -2,7 +2,7 @@
 
 ## 简介
 
-`xxtea`是一个快速安全的加密算法。本项目是`xxtea`加密算法的Golang实现，参考Python的[xxtea](https://github.com/ifduyue/xxtea)项目实现，加密解密结果同Python的[xxtea](https://github.com/ifduyue/xxtea)项目相同。
+[`xxtea`](https://en.wikipedia.org/wiki/XXTEA) 是一种分组密码。本项目是`xxtea`加密算法的Golang实现，参考Python的[xxtea](https://github.com/ifduyue/xxtea) 项目实现，加密解密结果同Python的[xxtea](https://github.com/ifduyue/xxtea) 项目相同。
 
 版本对应：
 
